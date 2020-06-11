@@ -7,7 +7,27 @@ exports.getRedoForm = async (req, res) => {
 }
 
 exports.addRedoForm = async (req, res) => {
-    return res.status(200).json({
-        success: true
-    });
+    try {
+        const redoForm = await RedoForm.create(req.body);
+        return res.status(201).json({
+            success: true,
+            data: redoForm
+        });
+    } catch (err) {
+        console.log("sasa")
+        if (err.name === 'ValidationError') {
+            const messages = Object.values(err.errors).map(val => val.message);
+
+            return res.status(400).json({
+                success: false,
+                error: messages
+            });
+        }
+        else {
+            return res.status(500).json({
+                success: false,
+                error: 'Server Error'
+            });
+        }
+    }
 }
