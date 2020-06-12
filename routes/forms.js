@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getRedoForm, addRedoForm } = require('../controllers/redoForm');
+const { getArrearForm, addArrearForm } = require('../controllers/arrear');
 
 router
     .route('/redoform')
-    .get(getRedoForm)
-    .post(addRedoForm);
+    .get(getArrearForm)
+    .post(addArrearForm);
 
 
 module.exports = router;

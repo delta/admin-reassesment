@@ -1,14 +1,14 @@
-const RedoForm = require('../models/RedoForm');
+const Arrear = require('../models/Arrear');
 
-exports.getRedoForm = async (req, res) => {
+exports.getArrearForm = async (req, res) => {
     return res.status(200).json({
         success: true
     });
 }
 
-exports.addRedoForm = async (req, res) => {
+exports.addArrearForm = async (req, res) => {
     try {
-        const redoForm = await RedoForm.create(req.body);
+        const redoForm = await Arrear.create(req.body);
         return res.status(201).json({
             success: true,
             data: redoForm

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const RedoFormSchema = new mongoose.Schema({
+const ArrearSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -45,4 +45,4 @@ const RedoFormSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('RedoForm', RedoFormSchema);
+module.exports = mongoose.model('Arrear', ArrearSchema);
