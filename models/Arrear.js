@@ -10,6 +10,11 @@ const ArrearSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please fill the roll no']
     },
+    course: {
+        type: String,
+        enum: ['UG', 'PG'],
+        default: 'UG'
+    },
     department: {
         type: String,
         required: [true, 'Please fill the department name']
@@ -21,6 +26,9 @@ const ArrearSchema = new mongoose.Schema({
     status: {
         type: String,
         required: [true, 'Please fill the status']
+    },
+    semester: {
+        type: Number
     },
     subject: [{
         dept: {
@@ -39,6 +47,33 @@ const ArrearSchema = new mongoose.Schema({
             required: [true, 'Please fill subject name']
         }
     }],
+    examType: {
+        type: String,
+        enum: ['reassesment', 'redo', 'formattive-assesment']
+    },
+    feeDetails: {
+        type: String,
+        trim: true,
+        required: [true, 'Please fill fee details']
+    },
+    feeSubjectNo: {
+        type: Number,
+        required: [true, 'Please fill the fee subject no']
+    },
+    feeTotal: {
+        type: Number,
+        required: [true, 'Please fill fee total']
+    },
+    feeSbiRef: {
+        type: String,
+        trim: true,
+        required: [true, 'Please fill fee sbi ref']
+    },
+    feeBankRef: {
+        type: String,
+        trim: true,
+        required: [true, 'Please fill fee bank ref']
+    },
     createdAt: {
         type: Date,
         default: Date.now
