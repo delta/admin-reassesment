@@ -14,7 +14,6 @@ exports.addRedoForm = async (req, res) => {
             data: redoForm
         });
     } catch (err) {
-        console.log("sasa")
         if (err.name === 'ValidationError') {
             const messages = Object.values(err.errors).map(val => val.message);
 
