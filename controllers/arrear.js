@@ -1,9 +1,22 @@
 const Arrear = require('../models/Arrear');
 
 exports.getArrearForm = async (req, res) => {
-    return res.status(200).json({
-        success: true
-    });
+    try {
+        let documents = await Arrear.find({roll: '312'});
+        let formTypes = ['reassesment', 'redo', 'formattive-assesment'];
+        let formFilled = {};
+        formTypes.forEach(form => formFilled[form] = false);
+        documents.forEach(document => formFilled[document.examType] = true);
+        return res.status(201).json({
+            success: true,
+            data: formFilled
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: 'Server Error'
+        });
+    }
 }
 
 exports.addArrearForm = async (req, res) => {

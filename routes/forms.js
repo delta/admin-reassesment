@@ -3,9 +3,8 @@ const router = express.Router();
 const { getArrearForm, addArrearForm } = require('../controllers/arrear');
 
 router
-    .route('/redoform')
+    .route('/arrear')
     .get(getArrearForm)
     .post(addArrearForm);
-
 
 module.exports = router;
