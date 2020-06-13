@@ -2,7 +2,7 @@ const Arrear = require('../models/Arrear');
 
 exports.getArrearForm = async (req, res) => {
     try {
-        let documents = await Arrear.find({roll: '213'});
+        let documents = await Arrear.find({ roll: '213' });
         let formTypes = ['reassesment', 'redo', 'formative-assesment'];
         let formFilled = {};
         formTypes.forEach(form => formFilled[form] = false);
@@ -21,9 +21,9 @@ exports.getArrearForm = async (req, res) => {
 
 exports.addArrearForm = async (req, res) => {
     try {
-        let submit = await Arrear.countDocuments({roll: req.body.roll, type: req.body.type});
-        if(submit !== 0)
-            throw {name: 'CustomError', msg: 'Document already exists'};
+        let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.body.roll)});
+        if (submit !== 0)
+            throw { name: 'CustomError', msg: 'Document already exists' };
 
         const redoForm = await Arrear.create(req.body);
         return res.status(201).json({
@@ -31,6 +31,7 @@ exports.addArrearForm = async (req, res) => {
             data: redoForm
         });
     } catch (err) {
+        console.log(err)
         if (err.name === 'ValidationError') {
             const messages = Object.values(err.errors).map(val => val.message);
             return res.status(400).json({
