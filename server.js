@@ -3,7 +3,11 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const morgan = require('morgan');
+var cors = require('cors');
+var session = require('express-session')
+
 const connectDB = require('./config/db');
+const {authenticateUser} = require('./controllers/auth');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -15,11 +19,21 @@ const app = express();
 
 app.use(express.json());
 
+app.use(session({
+  secret: 'move it to c0nf9g',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
+
 if(process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
 app.use('/api/v1/forms', forms);
+app.use('/auth', authenticateUser);
 
 // if(process.env.NODE_ENV === 'production') {
 //   app.use(express.static('client/build'));
