@@ -49,7 +49,7 @@ const ArrearSchema = new mongoose.Schema({
     }],
     examType: {
         type: String,
-        enum: ['reassesment', 'redo', 'formattive-assesment']
+        enum: ['reassesment', 'redo', 'formative-assesment']
     },
     feeDetails: {
         type: String,

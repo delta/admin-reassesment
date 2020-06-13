@@ -3,7 +3,7 @@ const Arrear = require('../models/Arrear');
 exports.getArrearForm = async (req, res) => {
     try {
         let documents = await Arrear.find({roll: '312'});
-        let formTypes = ['reassesment', 'redo', 'formattive-assesment'];
+        let formTypes = ['reassesment', 'redo', 'formative-assesment'];
         let formFilled = {};
         formTypes.forEach(form => formFilled[form] = false);
         documents.forEach(document => formFilled[document.examType] = true);
