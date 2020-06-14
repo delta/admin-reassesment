@@ -3,8 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const morgan = require('morgan');
-var cors = require('cors');
-var session = require('express-session')
+var session = require('express-session');
 
 const connectDB = require('./config/db');
 const {authenticateUser} = require('./controllers/auth');
@@ -26,8 +25,6 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
-
 if(process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
@@ -41,6 +38,6 @@ app.use('/auth', authenticateUser);
 //   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 // }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
