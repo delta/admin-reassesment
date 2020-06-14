@@ -6,13 +6,13 @@ const morgan = require('morgan');
 var session = require('express-session');
 
 const connectDB = require('./config/db');
-const {authenticateUser, logoutUser} = require('./controllers/auth');
 
 dotenv.config({ path: './config/config.env' });
 
 connectDB();
 
 const forms = require('./routes/forms');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -25,13 +25,20 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-if(process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
-app.use('/api/v1/forms', forms);
-app.use('/auth', authenticateUser);
-app.use('/logout', logoutUser)
+const authMiddleware = (req, res, next) => {
+  if (req.session.user) next();
+  else return res.status(401).json({
+    success: false,
+    error: "Unauthorized User"
+  })
+}
+
+app.use('/api/v1/forms', authMiddleware, forms);
+app.use('/auth', auth);
 
 // if(process.env.NODE_ENV === 'production') {
 //   app.use(express.static('client/build'));

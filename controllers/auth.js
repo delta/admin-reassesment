@@ -2,6 +2,20 @@
 const jwt = require('jsonwebtoken');
 const Imap = require('imap');
 
+exports.getLogin = async (req, res) => {
+    try {
+        return res.status(200).json({
+            success: true,
+            login: req.session.user ? true : false
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: "Internal Server Error"
+        })
+    }
+}
+
 exports.authenticateUser = async (req, res) => {
     try {
         let username = req.body.username;
@@ -21,7 +35,7 @@ exports.authenticateUser = async (req, res) => {
             });
         })
 
-        imap.once('error', function(err) {
+        imap.once('error', function (err) {
             console.log(err);
             return res.status(500).json({
                 success: false,
