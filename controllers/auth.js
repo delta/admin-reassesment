@@ -39,7 +39,7 @@ exports.authenticateUser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
     try {
-        res.session.user = null;
+        req.session.user = null;
         // set cookie here
         return res.status(201).json({
             success: true
