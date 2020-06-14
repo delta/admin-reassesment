@@ -6,7 +6,7 @@ const morgan = require('morgan');
 var session = require('express-session');
 
 const connectDB = require('./config/db');
-const {authenticateUser} = require('./controllers/auth');
+const {authenticateUser, logoutUser} = require('./controllers/auth');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -31,6 +31,7 @@ if(process.env.NODE_ENV === 'dev') {
 
 app.use('/api/v1/forms', forms);
 app.use('/auth', authenticateUser);
+app.use('/logout', logoutUser)
 
 // if(process.env.NODE_ENV === 'production') {
 //   app.use(express.static('client/build'));
