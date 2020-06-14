@@ -2,7 +2,7 @@ const Arrear = require('../models/Arrear');
 
 exports.getArrearForm = async (req, res) => {
     try {
-        let documents = await Arrear.find({ roll: '213' });
+        let documents = await Arrear.find({ roll: Number(req.session.user) });
         let formTypes = ['reassesment', 'redo', 'formative-assesment'];
         let formFilled = {};
         formTypes.forEach(form => formFilled[form] = false);
@@ -21,7 +21,8 @@ exports.getArrearForm = async (req, res) => {
 
 exports.addArrearForm = async (req, res) => {
     try {
-        let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.body.roll)});
+        // TODO: hardcode the roll number in frontend, else users can check who else has submitted arrear request
+        let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.session.user)});
         if (submit !== 0)
             throw { name: 'CustomError', msg: 'Document already exists' };
 

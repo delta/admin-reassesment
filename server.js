@@ -3,7 +3,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const morgan = require('morgan');
+var session = require('express-session');
+
 const connectDB = require('./config/db');
+const {authenticateUser} = require('./controllers/auth');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -15,11 +18,19 @@ const app = express();
 
 app.use(express.json());
 
+app.use(session({
+  secret: 'move it to c0nf9g',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
 if(process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
 app.use('/api/v1/forms', forms);
+app.use('/auth', authenticateUser);
 
 // if(process.env.NODE_ENV === 'production') {
 //   app.use(express.static('client/build'));
@@ -27,6 +38,6 @@ app.use('/api/v1/forms', forms);
 //   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 // }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
