@@ -26,6 +26,7 @@ exports.addArrearForm = async (req, res) => {
         if (submit !== 0)
             throw { name: 'CustomError', msg: 'Document already exists' };
 
+        req.body.roll = req.session.user;
         const redoForm = await Arrear.create(req.body);
         return res.status(201).json({
             success: true,
