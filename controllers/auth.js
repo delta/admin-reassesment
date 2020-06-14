@@ -16,7 +16,8 @@ exports.authenticateUser = async (req, res) => {
         imap.on('ready', (e) => {
             req.session.user = username;
             return res.status(201).json({
-                success: true
+                success: true,
+                user: username
             });
         })
 
