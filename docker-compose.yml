@@ -1,17 +1,29 @@
 version: "3"
 services:
-  server:
-    container_name: admin-reassesment-server
-    build: .
-    ports:
-        - "5000:5000"
-    depends_on:
-        - mongo
-    volumes: 
-        - ./:/usr/src/app
-  mongo:
-    image: mongo
-    ports:
-    - "27016:27017"
-    volumes:
-        - ./data:/data/db
+    server:
+        container_name: admin-reassesment-server
+        build: .
+        ports:
+            - "5000:5000"
+        depends_on:
+            - mongo
+        volumes: 
+            - ./:/usr/src/app
+    mongo:
+        image: mongo
+        ports:
+        - "27016:27017"
+        volumes:
+            - ./data:/data/db
+    mongo-express:
+        image: mongo-express
+        environment:
+            - ME_CONFIG_MONGODB_SERVER=mongo
+            - ME_CONFIG_MONGODB_PORT=27017
+            - ME_CONFIG_BASICAUTH_USERNAME=nimish
+            - ME_CONFIG_BASICAUTH_PASSWORD=nimishthegreat
+        depends_on:
+            - mongo
+        ports:
+            - "8888:8081"
+    
