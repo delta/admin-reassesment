@@ -1,12 +1,17 @@
-version: "2"
+version: "3"
 services:
   server:
+    container_name: admin-reassesment-server
     build: .
     ports:
-    - "5000:5000"
+        - "5000:5000"
     depends_on:
-    - mongo
+        - mongo
+    volumes: 
+        - ./:/usr/src/app
   mongo:
     image: mongo
     ports:
     - "27016:27017"
+    volumes:
+        - ./data:/data/db
