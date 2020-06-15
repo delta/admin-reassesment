@@ -1,5 +1,8 @@
 const Arrear = require('../models/Arrear');
 
+const startDate = new Date(process.env.START_DATE)
+const endDate = new Date(process.env.END_DATE)
+
 exports.getArrearForm = async (req, res) => {
     try {
         let documents = await Arrear.find({ roll: Number(req.session.user) });
@@ -20,6 +23,15 @@ exports.getArrearForm = async (req, res) => {
 }
 
 exports.addArrearForm = async (req, res) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (req.body.examType != 'redo') startDate.setDate(startDate.getDate() + 2);
+    if (startDate > today || endDate < today) {
+        return res.status(400).json({
+            success: false,
+            error: "Form has been closed"
+        });
+    }
     try {
         // TODO: hardcode the roll number in frontend, else users can check who else has submitted arrear request
         let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.session.user)});
