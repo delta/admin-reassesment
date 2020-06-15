@@ -10,6 +10,9 @@ const ArrearSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please fill the roll no']
     },
+    phone: {
+        type: Number
+    },
     course: {
         type: String,
         enum: ['UG', 'PG'],
