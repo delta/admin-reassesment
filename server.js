@@ -7,7 +7,7 @@ var session = require('express-session');
 
 const connectDB = require('./config/db');
 
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './.env' });
 
 connectDB();
 
