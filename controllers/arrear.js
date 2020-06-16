@@ -33,7 +33,6 @@ exports.addArrearForm = async (req, res) => {
         });
     }
     try {
-        // TODO: hardcode the roll number in frontend, else users can check who else has submitted arrear request
         let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.session.user)});
         if (submit !== 0)
             throw { name: 'CustomError', msg: 'Document already exists' };

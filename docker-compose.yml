@@ -9,6 +9,9 @@ services:
             - mongo
         volumes: 
             - ./:/usr/src/app
+            - /usr/src/app/node_modules
+            - /usr/src/app/frontend/node_modules
+            - /usr/src/app/frontend/build
     mongo:
         image: mongo
         ports:
