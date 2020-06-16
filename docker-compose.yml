@@ -15,9 +15,13 @@ services:
     mongo:
         image: mongo
         ports:
-        - "27016:27017"
+            - "27016:27017"
         volumes:
             - ./data:/data/db
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=password
+            - MONG_INITDB_DATABASE=reassesment
     mongo-express:
         image: mongo-express
         environment:
@@ -25,6 +29,8 @@ services:
             - ME_CONFIG_MONGODB_PORT=27017
             - ME_CONFIG_BASICAUTH_USERNAME=nimish
             - ME_CONFIG_BASICAUTH_PASSWORD=nimishthegreat
+            - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+            - ME_CONFIG_MONGODB_ADMINPASSWORD=password
         depends_on:
             - mongo
         ports:
