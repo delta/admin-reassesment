@@ -25,8 +25,8 @@ exports.addArrearForm = async (req, res) => {
     let deadline = getDeadlineObject(req.body.examType);
 
     let current = moment().utcOffset(330);
-    let startDate = new moment(deadline.startDate).utcOffset(330);
-    let endDate = new monent(deadline.endDate).utcOffset(330);
+    let startDate =  moment(deadline.startDate).utcOffset(330);
+    let endDate =  moment(deadline.endDate).utcOffset(330);
 
     try {
         if (startDate >= current || endDate <= current)
