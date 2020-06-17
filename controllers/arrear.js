@@ -1,5 +1,6 @@
 const Arrear = require('../models/Arrear');
 const { getDeadlineObject } = require('../utils/deadlineUtil');
+const moment = require('moment');
 
 exports.getArrearForm = async (req, res) => {
     try {
@@ -23,12 +24,12 @@ exports.getArrearForm = async (req, res) => {
 exports.addArrearForm = async (req, res) => {
     let deadline = getDeadlineObject(req.body.examType);
 
-    let today = new Date();
-    let startDate = new Date(deadline.startDate);
-    let endDate = new Date(deadline.endDate);
+    let current = moment().utcOffset(330);
+    let startDate = new moment(deadline.startDate).utcOffset(330);
+    let endDate = new monent(deadline.endDate).utcOffset(330);
 
     try {
-        if (startDate >= today || endDate <= today)
+        if (startDate >= current || endDate <= current)
             throw { name: 'CustomError', msg: 'Form is currently closed' };
 
         let submit = await Arrear.countDocuments({ examType: req.body.examType, roll: Number(req.session.user) });

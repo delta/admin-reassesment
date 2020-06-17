@@ -3,7 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const morgan = require('morgan');
-var session = require('express-session');
+const session = require('express-session');
 
 const connectDB = require('./config/db');
 
