@@ -1,11 +1,13 @@
 
 const Imap = require('imap');
+const { getDeadlineObject } = require('../utils/deadlineUtil');
 
 exports.getLogin = async (req, res) => {
     try {
         return res.status(200).json({
             success: true,
-            login: req.session.user ? true : false
+            login: req.session.user ? true : false,
+            deadline: getDeadlineObject()
         })
     } catch (err) {
         return res.status(500).json({
