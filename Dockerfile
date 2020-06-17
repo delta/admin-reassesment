@@ -1,4 +1,4 @@
-FROM node:8.10.0
+FROM node:12.18.0
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY frontend/package*.json ./frontend/

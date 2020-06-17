@@ -1,5 +1,4 @@
 
-const jwt = require('jsonwebtoken');
 const Imap = require('imap');
 
 exports.getLogin = async (req, res) => {

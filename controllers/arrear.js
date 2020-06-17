@@ -1,7 +1,5 @@
 const Arrear = require('../models/Arrear');
-
-const startDate = new Date(process.env.START_DATE)
-const endDate = new Date(process.env.END_DATE)
+const { getDeadlineObject } = require('../utils/deadlineUtil');
 
 exports.getArrearForm = async (req, res) => {
     try {
@@ -23,17 +21,17 @@ exports.getArrearForm = async (req, res) => {
 }
 
 exports.addArrearForm = async (req, res) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (req.body.examType != 'redo') startDate.setDate(startDate.getDate() + 2);
-    if (startDate > today || endDate < today) {
-        return res.status(400).json({
-            success: false,
-            error: "Form has been closed"
-        });
-    }
+    let deadline = getDeadlineObject(req.body.examType);
+
+    let today = new Date();
+    let startDate = new Date(deadline.startDate);
+    let endDate = new Date(deadline.endDate);
+
     try {
-        let submit = await Arrear.countDocuments({examType: req.body.examType, roll: Number(req.session.user)});
+        if (startDate >= today || endDate <= today)
+            throw { name: 'CustomError', msg: 'Form is currently closed' };
+
+        let submit = await Arrear.countDocuments({ examType: req.body.examType, roll: Number(req.session.user) });
         if (submit !== 0)
             throw { name: 'CustomError', msg: 'Document already exists' };
 

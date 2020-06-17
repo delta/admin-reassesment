@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.use(session({
-  secret: 'move it to c0nf9g',
+  secret: process.env.COOKIE_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
