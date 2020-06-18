@@ -67,6 +67,17 @@ const ArrearSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please fill fee total']
     },
+    specialisation: {
+	type: String,
+	trim: true,
+	default: '',
+    },
+    degree: {
+	type: String,
+	default: '',
+	trim: true,
+	enum: ['M.Tech', 'M.Arch', 'M.Sc', 'MBA', 'MCA']
+    },
     feeSbiRef: {
         type: String,
         trim: true,
@@ -80,7 +91,7 @@ const ArrearSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
 });
 
 module.exports = mongoose.model('Arrear', ArrearSchema);
