@@ -19,8 +19,7 @@ const ArrearSchema = new mongoose.Schema({
         default: 'UG'
     },
     department: {
-        type: String,
-        required: [true, 'Please fill the department name']
+        type: String
     },
     batch: {
         type: String,
@@ -68,15 +67,15 @@ const ArrearSchema = new mongoose.Schema({
         required: [true, 'Please fill fee total']
     },
     specialisation: {
-	type: String,
-	trim: true,
-	default: '',
+        type: String,
+        trim: true,
+        default: '',
     },
     degree: {
-	type: String,
-	default: '',
-	trim: true,
-	enum: ['M.Tech', 'M.Arch', 'M.Sc', 'MBA', 'MCA']
+        type: String,
+        default: 'B.Tech',
+        trim: true,
+        enum: ['M.Tech', 'M.Arch', 'M.Sc', 'MBA', 'MCA', 'B.Tech']
     },
     feeSbiRef: {
         type: String,
