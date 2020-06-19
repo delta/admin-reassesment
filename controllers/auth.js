@@ -28,7 +28,7 @@ exports.authenticateUser = async (req, res) => {
             port: "143"
         })
 
-        imap.on('ready', (e) => {
+        imap.once('ready', (e) => {
             req.session.user = username;
             return res.status(201).json({
                 success: true,
@@ -37,7 +37,7 @@ exports.authenticateUser = async (req, res) => {
         })
 
         imap.once('error', function (err) {
-            console.log(err);
+            console.log("err", err);
             return res.status(500).json({
                 success: false,
                 error: 'Wrong credentials'
