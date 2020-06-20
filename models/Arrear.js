@@ -84,8 +84,7 @@ const ArrearSchema = new mongoose.Schema({
     },
     feeBankRef: {
         type: String,
-        trim: true,
-        required: [true, 'Please fill fee bank ref']
+        trim: true
     },
     createdAt: {
         type: Date,
