@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 const colors = require('colors');
 const morgan = require('morgan');
 const session = require('express-session');
-
 const connectDB = require('./config/db');
+const logger = require('./config/logger');
 
 dotenv.config({ path: './.env' });
 
@@ -26,7 +26,7 @@ app.use(session({
 }));
 
 if (process.env.NODE_ENV === 'dev') {
-  app.use(morgan('dev'));
+  app.use(morgan("combined", { "stream": logger.stream }));
 }
 
 const authMiddleware = (req, res, next) => {
@@ -48,4 +48,4 @@ if(process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
+app.listen(PORT, logger.info({ message: `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`}));
